@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://characters/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/enemy-red.png" type="Texture" id=2]
+
+[node name="DivingEnemy" instance=ExtResource( 1 )]
+value = 50
+hp = 1
+speed = 600
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PoolVector2Array( 0, -29, 12, -26, 13, -30, 30, -42, 49, -42, 28, 32, 17, 32, 17, 37, 12, 42, -12, 42, -17, 37, -17, 32, -28, 32, -50, -42, -30, -42, -12, -30, -12, -26 )

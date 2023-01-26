@@ -1,0 +1,58 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://assets/bg_music.ogg" type="AudioStream" id=1]
+[ext_resource path="res://assets/background.png" type="Texture" id=2]
+[ext_resource path="res://zones/DeadZones.tscn" type="PackedScene" id=3]
+[ext_resource path="res://characters/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://World.gd" type="Script" id=5]
+[ext_resource path="res://characters/NormalEnemy.tscn" type="PackedScene" id=6]
+[ext_resource path="res://characters/BombingEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://characters/DivingEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://zones/SpawnZones.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/explode.wav" type="AudioStream" id=10]
+[ext_resource path="res://assets/hit.wav" type="AudioStream" id=11]
+[ext_resource path="res://ui/HUD.tscn" type="PackedScene" id=12]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 5 )
+enemies = [ ExtResource( 6 ), ExtResource( 8 ), ExtResource( 7 ) ]
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -15.0
+autoplay = true
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+
+[node name="ExplodeSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+
+[node name="BGImage" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 540.0
+margin_bottom = 960.0
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="DeadZones" parent="." instance=ExtResource( 3 )]
+
+[node name="SpawnZones" parent="." instance=ExtResource( 9 )]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 270, 800 )
+
+[node name="HUD" parent="." instance=ExtResource( 12 )]
+
+[connection signal="start" from="." to="Player" method="_on_start"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="death" from="Player" to="." method="_on_death"]
+[connection signal="game_over" from="Player" to="." method="_on_game_over"]
+[connection signal="spawn_laser" from="Player" to="." method="_on_spawn_laser"]
+[connection signal="took_damage" from="Player" to="." method="_on_took_damage"]
+[connection signal="update_lifeboard" from="Player" to="." method="_on_update_lifeboard"]

@@ -19,21 +19,21 @@ var is_player_alive := true
 func _ready() -> void:
 	randomize()
 	spawns = spawn_locations.get_children()
-	_safe_connect(spawn_timer, "timeout", self, "_on_timeout")
-	_safe_connect(player, "spawn_laser", self, "_on_spawn_laser")
-	_safe_connect(player, "took_damage", self, "_on_took_damage")
-	_safe_connect(player, "update_lifeboard", self, "_on_update_lifeboard")
-	_safe_connect(player, "death", self, "_on_death")
-	_safe_connect(player, "game_over", self, "_on_game_over")
+	_connect(spawn_timer, "timeout", "_on_timeout")
+	_connect(player, "spawn_laser", "_on_spawn_laser")
+	_connect(player, "took_damage", "_on_took_damage")
+	_connect(player, "update_lifeboard", "_on_update_lifeboard")
+	_connect(player, "death", "_on_death")
+	_connect(player, "game_over", "_on_game_over")
 
 func _on_timeout() -> void:
 	var enemy = enemies[randi()%enemies.size()].instance()
 	enemy.global_position = spawns[randi()%spawns.size()].global_position
 	if enemy.has_signal("spawn_laser"):
-		_safe_connect(enemy, "spawn_laser", self, "_on_spawn_laser")
-	_safe_connect(enemy, "took_damage", self, "_on_took_damage")
-	_safe_connect(enemy, "death", self, "_on_death")
-	_safe_connect(enemy, "update_score", self, "_on_update_score")
+		_connect(enemy, "spawn_laser", "_on_spawn_laser")
+	_connect(enemy, "took_damage", "_on_took_damage")
+	_connect(enemy, "death", "_on_death")
+	_connect(enemy, "update_score", "_on_update_score")
 	level.add_child(enemy)
 
 func _on_spawn_laser(scene, location) -> void:
@@ -61,6 +61,6 @@ func _on_game_over() -> void:
 	game_over.show()
 	life_board.hide()
 
-func _safe_connect(who, what, to, function) -> void:
-	if who.connect(what, to, function):
+func _connect(caller, emission, function) -> void:
+	if caller.connect(emission, self, function):
 		print("BUG: function 'connect' failed")

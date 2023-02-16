@@ -1,7 +1,7 @@
 extends Area2D
 
-export (int) var speed = 0
-export (int, -1, 1) var direction = 0
+export (int) var speed
+export (int, -1, 1) var direction
 
 func _physics_process(delta: float) -> void:
 	global_position.y += direction * speed * delta

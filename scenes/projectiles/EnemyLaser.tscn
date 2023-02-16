@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://projectiles/Laser.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/projectiles/Laser.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/enemy-laser.png" type="Texture" id=2]
 [ext_resource path="res://assets/sfx_laser2.wav" type="AudioStream" id=3]
 

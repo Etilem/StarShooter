@@ -1,23 +1,24 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://characters/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/characters/Enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/enemy-green.png" type="Texture" id=2]
-[ext_resource path="res://characters/BombingEnemy.gd" type="Script" id=3]
+[ext_resource path="res://scenes/characters/BombingEnemy.gd" type="Script" id=3]
 
 [node name="BombingEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 value = 75
 hp = 3
 speed = 75
+direction = 1
 
 [node name="Sprite" parent="." index="0"]
 texture = ExtResource( 2 )
 
 [node name="CollisionPolygon2D" parent="." index="1"]
-polygon = PoolVector2Array( 0, -32, 8, -32, 8, -42, 20, -42, 41, -29, 41, 20, 14, 36, 11, 42, -11, 42, -13, 36, -41, 20, -41, -29, -19, -42, -7, -42, -7, -32 )
+polygon = PoolVector2Array( 0, -32, 7, -32, 7, -42, 19, -42, 41, -29, 41, 20, 13, 36, 11, 42, -11, 42, -14, 36, -41, 20, -41, -29, -19, -42, -6, -42, -6, -32 )
 
 [node name="Muzzle" type="Position2D" parent="." index="2"]
-position = Vector2( 0, 70 )
+position = Vector2( 0, 60 )
 
 [node name="BombingTimer" type="Timer" parent="." index="3"]
 autostart = true

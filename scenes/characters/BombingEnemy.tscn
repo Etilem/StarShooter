@@ -21,6 +21,8 @@ polygon = PoolVector2Array( 0, -32, 7, -32, 7, -42, 19, -42, 41, -29, 41, 20, 13
 position = Vector2( 0, 60 )
 
 [node name="BombingTimer" type="Timer" parent="." index="3"]
+wait_time = 2.0
 autostart = true
 
-[connection signal="timeout" from="BombingTimer" to="." method="_on_timeout"]
+[node name="SlideTimer" parent="." index="4"]
+wait_time = 2.0

@@ -35,6 +35,9 @@ func _on_timeout() -> void:
 	_connect(enemy, "death", "_on_death")
 	_connect(enemy, "update_score", "_on_update_score")
 	level.add_child(enemy)
+	spawn_timer.wait_time -= .1
+	if spawn_timer.wait_time < 0.1:
+		spawn_timer.wait_time = rand_range(1.0, 3.0)
 
 func _on_spawn_laser(scene, location) -> void:
 	var laser = scene.instance()

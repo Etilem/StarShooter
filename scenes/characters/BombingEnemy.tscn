@@ -6,9 +6,9 @@
 
 [node name="BombingEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-value = 75
+value = 50
 hp = 3
-speed = 75
+speed = 200
 direction = 1
 
 [node name="Sprite" parent="." index="0"]
@@ -23,6 +23,3 @@ position = Vector2( 0, 60 )
 [node name="BombingTimer" type="Timer" parent="." index="3"]
 wait_time = 2.0
 autostart = true
-
-[node name="SlideTimer" parent="." index="4"]
-wait_time = 2.0

@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/characters/Enemy.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/enemy-black.png" type="Texture" id=2]
+[ext_resource path="res://scenes/characters/Tarpit.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 100.0
+
+[node name="SlowingEnemy" instance=ExtResource( 1 )]
+value = 25
+hp = 2
+speed = 100
+direction = 1
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PoolVector2Array( 0, -42, 18, -33, 19, -29, 34, -16, 52, -16, 52, -7, 24, 42, 7, 42, 8, 26, -8, 26, -6, 42, -23, 42, -52, -6, -52, -15, -34, -15, -19, -28, -18, -33 )
+
+[node name="SlideTimer" parent="." index="2"]
+wait_time = 2.0
+
+[node name="Tarpit" type="Area2D" parent="." index="3"]
+monitorable = false
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tarpit" index="0"]
+shape = SubResource( 1 )
+
+[connection signal="area_entered" from="Tarpit" to="Tarpit" method="_on_Tarpit_area_entered"]
+[connection signal="area_exited" from="Tarpit" to="Tarpit" method="_on_Tarpit_area_exited"]

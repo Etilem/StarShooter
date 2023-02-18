@@ -10,11 +10,15 @@ onready var hit_sound := $Sounds/HitSound
 onready var explode_sound := $Sounds/ExplodeSound
 onready var score_board := $HUD/Score
 onready var life_board := $HUD/Lifeboard
+onready var waves := $HUD/Waves
 onready var game_over := $HUD/TheEnd
 onready var button := $HUD/TheEnd/Button
+onready var final_score := $HUD/TheEnd/FinalScore
+onready var anim := $Background/AnimationPlayer
 
 var spawns : Array
 var score := 0
+var waves_num := 1
 var is_player_alive := true
 
 func _ready() -> void:
@@ -39,7 +43,11 @@ func _on_timeout() -> void:
 	level.add_child(enemy)
 	spawn_timer.wait_time -= .1
 	if spawn_timer.wait_time < 0.1:
-		spawn_timer.wait_time = rand_range(1.0, 3.0)
+		randomize()
+		waves_num += 1
+		anim.play("flash")
+		spawn_timer.wait_time = rand_range(2.0/float(waves_num), 2.0)
+		waves.text = "wave #" + str(waves_num)
 
 func _on_spawn_laser(scene, location) -> void:
 	var laser = scene.instance()
@@ -63,6 +71,7 @@ func _on_update_score(amount) -> void:
 
 func _on_game_over() -> void:
 	is_player_alive = false
+	final_score.text = "FINAL SCORE: " + str(score) + " * " + str(waves_num) + " = " + str(score*waves_num)
 	game_over.show()
 	life_board.hide()
 

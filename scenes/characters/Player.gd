@@ -22,7 +22,7 @@ func _physics_process(delta: float) -> void:
 	input_vector = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	global_position += input_vector * speed * delta
 	global_position.x = clamp(global_position.x, 0, 540)
-	global_position.y = clamp(global_position.y, 0, 960)
+	global_position.y = clamp(global_position.y, 0, 888)
 	if Input.is_action_just_pressed("ui_select"):
 		emit_signal("spawn_laser", Laser, muzzle.global_position)
 

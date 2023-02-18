@@ -20,3 +20,4 @@ shape = SubResource( 1 )
 
 [node name="SFX" parent="." index="2"]
 stream = ExtResource( 1 )
+volume_db = -5.0

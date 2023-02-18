@@ -10,7 +10,8 @@ onready var hit_sound := $Sounds/HitSound
 onready var explode_sound := $Sounds/ExplodeSound
 onready var score_board := $HUD/Score
 onready var life_board := $HUD/Lifeboard
-onready var game_over := $HUD/GameOver
+onready var game_over := $HUD/TheEnd
+onready var button := $HUD/TheEnd/Button
 
 var spawns : Array
 var score := 0
@@ -25,6 +26,7 @@ func _ready() -> void:
 	_connect(player, "update_lifeboard", "_on_update_lifeboard")
 	_connect(player, "death", "_on_death")
 	_connect(player, "game_over", "_on_game_over")
+	_connect(button, "pressed", "_on_pressed")
 
 func _on_timeout() -> void:
 	var enemy = enemies[randi()%enemies.size()].instance()
@@ -67,3 +69,7 @@ func _on_game_over() -> void:
 func _connect(caller, emission, function) -> void:
 	if caller.connect(emission, self, function):
 		print("BUG: function 'connect' failed")
+
+func _on_pressed() -> void:
+	if get_tree().change_scene("res://scenes/world/World.tscn"):
+		print("BUG: changing scene failed")

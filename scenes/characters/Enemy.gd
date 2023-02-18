@@ -16,7 +16,7 @@ var rand_slide : float
 func _ready() -> void:
 	if connect("area_entered", self, "_on_area_entered"):
 		print("BUG: function 'connect' failed")
-	slide_timer.wait_time = rand_range(.25, 1)
+	slide_timer.wait_time = rand_range(.25, 1.5)
 
 func _physics_process(delta: float) -> void:
 	global_position.y += direction * speed * delta

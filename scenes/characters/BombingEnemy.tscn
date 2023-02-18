@@ -6,9 +6,9 @@
 
 [node name="BombingEnemy" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
-value = 50
+value = 75
 hp = 3
-speed = 200
+speed = 100
 direction = 1
 
 [node name="Sprite" parent="." index="0"]

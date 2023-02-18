@@ -12,4 +12,4 @@ func _ready() -> void:
 
 func _on_timeout() -> void:
 	emit_signal("spawn_laser", Laser, muzzle.global_position)
-	bomb_timer.wait_time = rand_range(.25, 1)
+	bomb_timer.wait_time = rand_range(1.0, 2.0)

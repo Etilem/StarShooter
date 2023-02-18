@@ -46,7 +46,7 @@ func _on_timeout() -> void:
 		randomize()
 		waves_num += 1
 		anim.play("flash")
-		spawn_timer.wait_time = rand_range(2.0/float(waves_num), 2.0)
+		spawn_timer.wait_time = rand_range(3.0/log(waves_num), 3.0)
 		waves.text = "wave #" + str(waves_num)
 
 func _on_spawn_laser(scene, location) -> void:

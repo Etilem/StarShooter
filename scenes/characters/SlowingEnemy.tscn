@@ -9,8 +9,8 @@ radius = 100.0
 
 [node name="SlowingEnemy" instance=ExtResource( 1 )]
 value = 25
-hp = 5
-speed = 100
+hp = 2
+speed = 200
 direction = 1
 
 [node name="Sprite" parent="." index="0"]

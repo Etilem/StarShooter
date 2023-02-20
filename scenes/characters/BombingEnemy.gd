@@ -11,5 +11,5 @@ func _ready() -> void:
 		print("BUG: function 'connect' failed")
 
 func _on_timeout() -> void:
-	emit_signal("spawn_laser", Laser, muzzle.global_position)
+	emit_signal("spawn_laser", Laser, [muzzle.global_position])
 	bomb_timer.wait_time = rand_range(1.0, 2.0)

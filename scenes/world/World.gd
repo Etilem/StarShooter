@@ -58,11 +58,12 @@ func _on_GoodiesTimer_timeout() -> void:
 	level.add_child(goodie)
 	goodies_timer.wait_time = rand_range(30.0/log(waves_num+1), 30.0)
 
-func _on_spawn_laser(scene, location) -> void:
-	var laser = scene.instance()
-	laser.global_position = location
-	laser.get_node("SFX").play()
-	level.add_child(laser)
+func _on_spawn_laser(scene, locations : Array) -> void:
+	for loc in locations:
+		var laser = scene.instance()
+		laser.global_position = loc
+		level.add_child(laser)
+		laser.get_node("SFX").play()
 
 func _on_took_damage() -> void:
 	hit_sound.play()

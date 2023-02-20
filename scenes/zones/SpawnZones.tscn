@@ -26,3 +26,7 @@ position = Vector2( 470, 0 )
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="GoodiesTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true

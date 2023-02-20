@@ -10,5 +10,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	global_position.y += direction * speed * delta
 
-func _on_area_entered(_area: Area2D) -> void:
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("goodies"):
+		return
 	queue_free()

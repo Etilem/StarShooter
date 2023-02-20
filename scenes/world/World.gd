@@ -1,11 +1,13 @@
 extends Node2D
 
 export (Array, PackedScene) var enemies
+export (Array, PackedScene) var goodies
 
 onready var level := $Level
 onready var player := $Level/Player
 onready var spawn_locations := $Level/SpawnZones/Locations
 onready var spawn_timer := $Level/SpawnZones/SpawnTimer
+onready var goodies_timer := $Level/SpawnZones/GoodiesTimer
 onready var hit_sound := $Sounds/HitSound
 onready var explode_sound := $Sounds/ExplodeSound
 onready var score_board := $HUD/Score
@@ -24,7 +26,8 @@ var is_player_alive := true
 func _ready() -> void:
 	randomize()
 	spawns = spawn_locations.get_children()
-	_connect(spawn_timer, "timeout", "_on_timeout")
+	_connect(spawn_timer, "timeout", "_on_SpawnTimer_timeout")
+	_connect(goodies_timer, "timeout", "_on_GoodiesTimer_timeout")
 	_connect(player, "spawn_laser", "_on_spawn_laser")
 	_connect(player, "took_damage", "_on_took_damage")
 	_connect(player, "update_lifeboard", "_on_update_lifeboard")
@@ -32,7 +35,7 @@ func _ready() -> void:
 	_connect(player, "game_over", "_on_game_over")
 	_connect(button, "pressed", "_on_pressed")
 
-func _on_timeout() -> void:
+func _on_SpawnTimer_timeout() -> void:
 	var enemy = enemies[randi()%enemies.size()].instance()
 	enemy.global_position = spawns[randi()%spawns.size()].global_position
 	if enemy.has_signal("spawn_laser"):
@@ -46,8 +49,14 @@ func _on_timeout() -> void:
 		randomize()
 		waves_num += 1
 		anim.play("flash")
-		spawn_timer.wait_time = rand_range(3.0/log(waves_num), 3.0)
+		spawn_timer.wait_time = rand_range(3.0/log(waves_num+1), 3.0)
 		waves.text = "wave #" + str(waves_num)
+
+func _on_GoodiesTimer_timeout() -> void:
+	var goodie = goodies[randi()%goodies.size()].instance()
+	goodie.global_position = spawns[randi()%spawns.size()].global_position
+	level.add_child(goodie)
+	goodies_timer.wait_time = rand_range(30.0/log(waves_num+1), 30.0)
 
 func _on_spawn_laser(scene, location) -> void:
 	var laser = scene.instance()

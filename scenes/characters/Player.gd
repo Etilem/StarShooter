@@ -27,11 +27,16 @@ func _physics_process(delta: float) -> void:
 		emit_signal("spawn_laser", Laser, muzzle.global_position)
 
 
-func _on_area_entered(_area: Area2D) -> void:
-	hp -= 1
-	emit_signal("took_damage")
-	emit_signal("update_lifeboard", hp)
-	if hp <= 0:
-		queue_free()
-		emit_signal("death")
-		emit_signal("game_over")
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group("goodies"):
+		hp += 1
+		area.queue_free()
+		emit_signal("update_lifeboard", hp)
+	else:
+		hp -= 1
+		emit_signal("took_damage")
+		emit_signal("update_lifeboard", hp)
+		if hp <= 0:
+			queue_free()
+			emit_signal("death")
+			emit_signal("game_over")

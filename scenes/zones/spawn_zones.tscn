@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://q2fqyqtbu2yv"]
+
+[node name="SpawnZones" type="Node2D"]
+
+[node name="SpawnLocations" type="Node2D" parent="."]
+position = Vector2(0, -60)
+
+[node name="SpawnLocation1" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(70, 0)
+
+[node name="SpawnLocation2" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(170, 0)
+
+[node name="SpawnLocation3" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(270, 0)
+
+[node name="SpawnLocation4" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(370, 0)
+
+[node name="SpawnLocation5" type="Marker2D" parent="SpawnLocations"]
+position = Vector2(470, 0)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="GoodiesTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true

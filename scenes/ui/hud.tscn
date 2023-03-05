@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkwc6h5q63xiq"]
+
+[ext_resource type="FontFile" uid="uid://b7ulnjvj6gxdy" path="res://assets/kenvector_future.ttf" id="1"]
+[ext_resource type="Texture2D" uid="uid://c4jbvs65ouco" path="res://assets/player-life.png" id="2"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Score" type="Label" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 24.0
+offset_right = 292.0
+offset_bottom = 57.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
+text = "SCORE: 0"
+
+[node name="Waves" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 48.0
+offset_right = 190.0
+offset_bottom = 87.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 32
+text = "wave #1"
+
+[node name="Lifeboard" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 930.0
+offset_right = 209.0
+offset_bottom = 956.0
+texture = ExtResource("2")
+stretch_mode = 1
+
+[node name="TheEnd" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = 95.0
+offset_top = 300.0
+offset_right = 95.0
+offset_bottom = 300.0
+rotation = -0.174533
+
+[node name="GameOver" type="Label" parent="TheEnd"]
+layout_mode = 0
+anchor_right = 1.0
+offset_right = 344.0
+offset_bottom = 57.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 48
+text = "GAME OVER"
+
+[node name="FinalScore" type="Label" parent="TheEnd"]
+layout_mode = 0
+offset_top = 54.0
+offset_right = 202.0
+offset_bottom = 84.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 18
+text = "FINAL SCORE:"
+
+[node name="Button" type="Button" parent="TheEnd"]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 113.0
+offset_bottom = 109.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 18
+text = "RESTART"

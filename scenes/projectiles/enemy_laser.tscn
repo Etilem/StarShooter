@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8hcojeyuo8nm"]
+
+[ext_resource type="PackedScene" uid="uid://bq6q67xct4ro8" path="res://scenes/projectiles/laser.tscn" id="1_bbmqy"]
+[ext_resource type="Texture2D" uid="uid://bob8r0dj5dq4k" path="res://assets/enemy-laser.png" id="2_oe7pd"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mcl3b"]
+radius = 7.0
+height = 38.0
+
+[node name="EnemyLaser" instance=ExtResource("1_bbmqy")]
+speed = 800
+direction = 1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_oe7pd")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("CapsuleShape2D_mcl3b")

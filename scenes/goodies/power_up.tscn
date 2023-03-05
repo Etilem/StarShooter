@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dxp6y2atkw3w0"]
+
+[ext_resource type="PackedScene" uid="uid://j3djjyb6sfe8" path="res://scenes/goodies/goodie.tscn" id="1_mj6wi"]
+[ext_resource type="Texture2D" uid="uid://s1nwf3m5ksie" path="res://assets/pow.png" id="2_0ed6b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u83jf"]
+size = Vector2(40, 32)
+
+[node name="PowerUp" groups=["powerup"] instance=ExtResource("1_mj6wi")]
+speed = 150
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_0ed6b")
+
+[node name="CollisionShape2D" parent="." index="1"]
+shape = SubResource("RectangleShape2D_u83jf")

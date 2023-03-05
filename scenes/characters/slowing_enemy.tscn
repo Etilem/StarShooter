@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dgwc7utk645n3"]
+
+[ext_resource type="PackedScene" uid="uid://jbn1l2apucf4" path="res://scenes/characters/enemy.tscn" id="1_6ay52"]
+[ext_resource type="Script" path="res://scenes/characters/slowing_enemy.gd" id="2_mqdf1"]
+[ext_resource type="Texture2D" uid="uid://cd44uwe2c02op" path="res://assets/enemy-black.png" id="2_x0nms"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqyfx"]
+radius = 150.0
+
+[node name="SlowingEnemy" instance=ExtResource("1_6ay52")]
+script = ExtResource("2_mqdf1")
+value = 25
+speed = 75
+hp = 2
+direction = 1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_x0nms")
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PackedVector2Array(0, -42, 18, -33, 20, -28, 34, -16, 52, -16, 52, -7, 24, 42, 6, 42, 9, 26, -9, 26, -6, 42, -23, 42, -52, -7, -52, -16, -35, -16, -19, -29, -18, -33)
+
+[node name="TarPit" type="Area2D" parent="." index="3"]
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TarPit" index="0"]
+shape = SubResource("CircleShape2D_wqyfx")
+
+[connection signal="area_entered" from="TarPit" to="." method="_on_tar_pit_area_entered"]
+[connection signal="area_exited" from="TarPit" to="." method="_on_tar_pit_area_exited"]

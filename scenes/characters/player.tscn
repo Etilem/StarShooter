@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://de28n1olih3al"]
+
+[ext_resource type="Texture2D" uid="uid://c08gv22td04vb" path="res://assets/player.png" id="1_x1wgs"]
+[ext_resource type="Script" path="res://scenes/characters/player.gd" id="1_yncjt"]
+
+[node name="Player" type="Area2D" groups=["player"]]
+script = ExtResource("1_yncjt")
+speed = 300
+hp = 5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_x1wgs")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -38, 4, -38, 12, -16, 56, 6, 38, 35, 16, 30, 12, 37, -13, 37, -17, 30, -37, 35, -56, 6, -12, -16, -4, -38)
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(0, -60)
+
+[node name="LeftWing" type="Marker2D" parent="."]
+position = Vector2(-56, -20)
+
+[node name="RightWing" type="Marker2D" parent="."]
+position = Vector2(56, -20)
+
+[node name="PowerUpTimer" type="Timer" parent="."]
+wait_time = 20.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="PowerUpTimer" to="." method="_on_power_up_timer_timeout"]

@@ -1,0 +1,108 @@
+[gd_scene load_steps=20 format=3 uid="uid://3uehaww63pji"]
+
+[ext_resource type="Script" path="res://scenes/world/world.gd" id="1_0vw6a"]
+[ext_resource type="AudioStream" uid="uid://utv3n1cge2wi" path="res://assets/bg_music.ogg" id="1_mpgvk"]
+[ext_resource type="Texture2D" uid="uid://dag25s1rr14ej" path="res://assets/background.png" id="2_7u8vu"]
+[ext_resource type="PackedScene" uid="uid://b83op6aao1as2" path="res://scenes/characters/bombing_enemy.tscn" id="2_un2hq"]
+[ext_resource type="AudioStream" uid="uid://b6t47q4fpqkkj" path="res://assets/hit.wav" id="4_edn5n"]
+[ext_resource type="PackedScene" uid="uid://dgwc7utk645n3" path="res://scenes/characters/slowing_enemy.tscn" id="4_jd436"]
+[ext_resource type="PackedScene" uid="uid://c1eutrjg227bi" path="res://scenes/goodies/life_up.tscn" id="5_0i7n7"]
+[ext_resource type="AudioStream" uid="uid://dcxn6gbcsyhs4" path="res://assets/explode.wav" id="5_vmpb5"]
+[ext_resource type="AudioStream" uid="uid://bnm5rex377i8q" path="res://assets/sfx_laser1.wav" id="6_3pfnt"]
+[ext_resource type="PackedScene" uid="uid://dxp6y2atkw3w0" path="res://scenes/goodies/power_up.tscn" id="6_go1n1"]
+[ext_resource type="AudioStream" uid="uid://clooa7eegm7lf" path="res://assets/sfx_laser2.wav" id="7_n7gwp"]
+[ext_resource type="PackedScene" uid="uid://6vsgdeqqrh3" path="res://scenes/zones/dead_zones.tscn" id="8_b737q"]
+[ext_resource type="PackedScene" uid="uid://de28n1olih3al" path="res://scenes/characters/player.tscn" id="8_pbegt"]
+[ext_resource type="PackedScene" uid="uid://q2fqyqtbu2yv" path="res://scenes/zones/spawn_zones.tscn" id="9_w315x"]
+[ext_resource type="PackedScene" uid="uid://cikj5iu8rxywd" path="res://scenes/characters/diving_enemy.tscn" id="10_rmdy8"]
+[ext_resource type="PackedScene" uid="uid://bkwc6h5q63xiq" path="res://scenes/ui/hud.tscn" id="14_5sdo8"]
+
+[sub_resource type="Animation" id="Animation_po1yw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGImage:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_myh7x"]
+resource_name = "flash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BGImage:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.392157), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_py21s"]
+_data = {
+"RESET": SubResource("Animation_po1yw"),
+"flash": SubResource("Animation_myh7x")
+}
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_0vw6a")
+enemies = Array[PackedScene]([ExtResource("2_un2hq"), ExtResource("10_rmdy8"), ExtResource("4_jd436")])
+goodies = Array[PackedScene]([ExtResource("5_0i7n7"), ExtResource("6_go1n1")])
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="BGMusic" type="AudioStreamPlayer" parent="Background"]
+stream = ExtResource("1_mpgvk")
+volume_db = -5.0
+autoplay = true
+
+[node name="BGImage" type="TextureRect" parent="Background"]
+offset_right = 540.0
+offset_bottom = 960.0
+texture = ExtResource("2_7u8vu")
+stretch_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
+libraries = {
+"": SubResource("AnimationLibrary_py21s")
+}
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="HitSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("4_edn5n")
+
+[node name="ExplodeSound" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("5_vmpb5")
+
+[node name="PlayerLaser" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("6_3pfnt")
+
+[node name="EnemyLaser" type="AudioStreamPlayer" parent="Sounds"]
+stream = ExtResource("7_n7gwp")
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="DeadZones" parent="Level" instance=ExtResource("8_b737q")]
+
+[node name="SpawnZones" parent="Level" instance=ExtResource("9_w315x")]
+
+[node name="Player" parent="Level" instance=ExtResource("8_pbegt")]
+position = Vector2(270, 900)
+
+[node name="HUD" parent="." instance=ExtResource("14_5sdo8")]
+
+[connection signal="death" from="Level/Player" to="." method="_on_death"]
+[connection signal="game_over" from="Level/Player" to="." method="_on_game_over"]
+[connection signal="player_spawn_laser" from="Level/Player" to="." method="_on_player_spawn_laser"]
+[connection signal="took_damage" from="Level/Player" to="." method="_on_took_damage"]
+[connection signal="update_lifeboard" from="Level/Player" to="." method="_on_update_lifeboard"]

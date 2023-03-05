@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://b83op6aao1as2"]
+
+[ext_resource type="PackedScene" uid="uid://jbn1l2apucf4" path="res://scenes/characters/enemy.tscn" id="1_egn72"]
+[ext_resource type="Texture2D" uid="uid://bxb48q1rbp6hx" path="res://assets/enemy-green.png" id="2_vhdnf"]
+[ext_resource type="Script" path="res://scenes/characters/bombing_enemy.gd" id="2_vu5wc"]
+
+[node name="BombingEnemy" instance=ExtResource("1_egn72")]
+script = ExtResource("2_vu5wc")
+value = 75
+speed = 150
+hp = 3
+direction = 1
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_vhdnf")
+
+[node name="CollisionPolygon2D" parent="." index="1"]
+polygon = PackedVector2Array(0, -32, 7, -32, 7, -42, 19, -42, 41, -29, 41, 20, 14, 36, 11, 42, -11, 42, -13, 36, -41, 20, -41, -29, -19, -42, -6, -42, -6, -32)
+
+[node name="Muzzle" type="Marker2D" parent="." index="2"]
+position = Vector2(0, 60)
+
+[node name="BombingTimer" type="Timer" parent="." index="3"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="BombingTimer" to="." method="_on_bombing_timer_timeout"]

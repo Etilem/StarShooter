@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://dho1gf5t63w01"]
+
+[ext_resource type="Script" path="res://scenes/characters/explosion.gd" id="1_fiumv"]
+
+[sub_resource type="Curve" id="Curve_6sg31"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5x0y6"]
+curve = SubResource("Curve_6sg31")
+
+[sub_resource type="Gradient" id="Gradient_w2weh"]
+offsets = PackedFloat32Array(0.517857, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_f24ue"]
+gradient = SubResource("Gradient_w2weh")
+
+[sub_resource type="Curve" id="Curve_wwbq7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ufscm"]
+curve = SubResource("Curve_wwbq7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hfval"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 250.0
+initial_velocity_max = 750.0
+angular_velocity_min = 180.0
+angular_velocity_max = 360.0
+angular_velocity_curve = SubResource("CurveTexture_5x0y6")
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 8.0
+scale_curve = SubResource("CurveTexture_ufscm")
+color_ramp = SubResource("GradientTexture1D_f24ue")
+
+[node name="Explosion" type="GPUParticles2D"]
+emitting = false
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_hfval")
+one_shot = true
+explosiveness = 1.0
+script = ExtResource("1_fiumv")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

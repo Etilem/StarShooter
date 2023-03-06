@@ -66,6 +66,7 @@ volume_db = -5.0
 autoplay = true
 
 [node name="BGImage" type="TextureRect" parent="Background"]
+self_modulate = Color(0.501961, 0.501961, 0.501961, 1)
 offset_right = 540.0
 offset_bottom = 960.0
 texture = ExtResource("2_7u8vu")

@@ -71,8 +71,13 @@ func _on_goodies_timer_timeout():
 func _on_took_damage():
 	hit_sound.play()
 
-func _on_death(_location):
+func _on_death(location):
 	explode_sound.play()
+	var explosion = preload("res://scenes/characters/explosion.tscn").instantiate()
+	explosion.global_position = location
+	level.add_child(explosion)
+	explosion.self_modulate = Color(randf(),randf(),randf())
+	explosion.emitting = true
 
 func _on_update_score(amount):
 	if is_player_alive:

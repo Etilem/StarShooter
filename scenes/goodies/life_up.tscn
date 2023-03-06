@@ -4,13 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://b14gkxnr4layv" path="res://assets/up.png" id="2_km7k2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_viskv"]
-size = Vector2(38, 38)
+size = Vector2(40, 40)
 
 [node name="LifeUp" groups=["lifeup"] instance=ExtResource("1_km4vf")]
 speed = 150
 
 [node name="Sprite2D" parent="." index="0"]
-scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_km7k2")
 
 [node name="CollisionShape2D" parent="." index="1"]

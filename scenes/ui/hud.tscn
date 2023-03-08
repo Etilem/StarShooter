@@ -63,11 +63,20 @@ theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 18
 text = "FINAL SCORE:"
 
+[node name="Author" type="Label" parent="TheEnd"]
+layout_mode = 0
+offset_top = 84.0
+offset_right = 334.0
+offset_bottom = 107.0
+theme_override_fonts/font = ExtResource("1")
+theme_override_font_sizes/font_size = 12
+text = "https://github.com/Etilem/StarShooter"
+
 [node name="Button" type="Button" parent="TheEnd"]
 layout_mode = 0
-offset_top = 80.0
+offset_top = 108.0
 offset_right = 113.0
-offset_bottom = 109.0
+offset_bottom = 137.0
 theme_override_fonts/font = ExtResource("1")
 theme_override_font_sizes/font_size = 18
 text = "RESTART"
